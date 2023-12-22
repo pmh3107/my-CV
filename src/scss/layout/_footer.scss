@@ -1,0 +1,41 @@
+@use "../abstracts";
+.footer {
+  min-height: 100px;
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include abstracts.screen(md) {
+      flex-direction: column;
+      gap: 30px;
+    }
+  }
+  &__copyright-content {
+    line-height: 1.5;
+  }
+  &__columns {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 40px;
+    align-items: center;
+    @include abstracts.screen(md) {
+      order: 1;
+    }
+    @include abstracts.screen(sm) {
+      grid-template-columns: repeat(1, auto);
+      gap: 30px;
+    }
+  }
+  &__title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  &__content {
+    font-size: 1.5rem;
+    text-align: center;
+    @include abstracts.screen(md) {
+      order: 2;
+    }
+  }
+}
