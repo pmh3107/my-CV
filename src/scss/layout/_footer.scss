@@ -1,6 +1,9 @@
 @use "../abstracts";
 .footer {
+  margin-top: 45px;
   min-height: 100px;
+  display: flex;
+  align-items: center;
   &__inner {
     display: flex;
     justify-content: space-between;
