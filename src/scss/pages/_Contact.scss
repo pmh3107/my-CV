@@ -1,6 +1,6 @@
 @use "../abstracts";
 .contact {
-  background-color: var(--contact-bg-color);
+  background-color: var(--primary-bg-color);
   &-inner {
     display: flex;
     flex-direction: column;
@@ -12,7 +12,7 @@
     min-width: 360px;
     max-width: 680px;
     margin-bottom: 50px;
-    background-color: #fff;
+    background-color: var(--form-bg-color);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
 }
@@ -27,7 +27,7 @@
     display: block;
     height: 20px;
     width: 20px;
-    background-color: #0050ff;
+    background-color: var(--second-color-blue);
   }
   &__heading {
     font-weight: 900;
@@ -67,7 +67,8 @@
   &__input {
     height: 40px;
     width: 100%;
-    border-bottom: 2px solid black;
+    border-radius: 0;
+    border-bottom: 2px solid var(--primary-text-color);
     padding-left: 10px;
     margin-top: 10px;
     font-weight: 500;
@@ -75,14 +76,18 @@
     width: 100%;
     &-textarea {
       padding: 10px 10px;
+      border-bottom: 3px solid var(--primary-text-color);
     }
     &:focus {
-      color: #0050ff;
-      border-bottom: 2px solid #0050ff;
+      color: var(--second-color-blue);
+      border-bottom: 2px solid var(--second-color-blue);
+    }
+    &:focus:invalid {
+      border-bottom: 2px solid red;
     }
   }
   &__submit-btn {
-    background-color: #0050ff;
+    background-color: var(--second-color-blue);
     color: #fff;
     border: 1px solid transparent;
   }

@@ -40,12 +40,13 @@ const ContactForm = () => {
             First Name
           </label>
           <input
-            type="text"
+            typeof="text"
             id="firstName"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
             className="form__input"
+            placeholder=" "
             required
           />
         </div>
@@ -55,7 +56,7 @@ const ContactForm = () => {
             Last Name
           </label>
           <input
-            type="text"
+            typeof="text"
             id="lastName"
             name="lastName"
             value={formData.lastName}
@@ -70,9 +71,10 @@ const ContactForm = () => {
           Phone
         </label>
         <input
-          type="text"
           id="phone"
           name="phone"
+          typeof="tel"
+          pattern="[0-9]*"
           value={formData.phone}
           onChange={handleChange}
           className="form__input"
@@ -84,7 +86,7 @@ const ContactForm = () => {
           Email
         </label>
         <input
-          type="email"
+          typeof="email"
           id="email"
           name="email"
           value={formData.email}
@@ -99,7 +101,7 @@ const ContactForm = () => {
           Subject
         </label>
         <input
-          type="text"
+          typeof="text"
           id="subject"
           name="subject"
           value={formData.subject}
@@ -123,7 +125,7 @@ const ContactForm = () => {
         ></textarea>
       </div>
 
-      <button className="form__submit-btn btn" type="submit">
+      <button className="form__submit-btn btn" typeof="submit">
         SEND
       </button>
     </form>

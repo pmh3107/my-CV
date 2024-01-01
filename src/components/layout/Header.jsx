@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 function Header() {
   const [isActive, setIsActive] = useState(false);
-
+  const location = useLocation();
   const toggleNavbar = () => {
     setIsActive(!isActive);
   };
@@ -42,12 +42,20 @@ function Header() {
                 </svg>
               </div>
               <ul className={`navbar__list ${isActive ? "visible" : ""}`}>
-                <li className="navbar__item active">
+                <li
+                  className={`navbar__item ${
+                    location.pathname === "/" ? "active" : ""
+                  }`}
+                >
                   <Link to="/">About me</Link>
                 </li>
                 <li className="navbar__item">Resume</li>
                 <li className="navbar__item">Project</li>
-                <li className="navbar__item">
+                <li
+                  className={`navbar__item ${
+                    location.pathname === "/Contact" ? "active" : ""
+                  }`}
+                >
                   <Link to="/Contact">Contact</Link>
                 </li>
               </ul>

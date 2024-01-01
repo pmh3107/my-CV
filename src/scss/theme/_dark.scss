@@ -1,0 +1,27 @@
+@use "../abstracts";
+
+html.dark {
+  --header-bg-color: #1a1a1a; // Màu nền header tối
+  --aboutMe-bg-color: linear-gradient(
+    to right,
+    rgb(30, 30, 30) 0%,
+    // Màu gradient tối
+    rgb(30, 30, 30) 40%,
+    transparent 40%,
+    transparent 100%
+  );
+  --aboutMe-bg-color--mobile: linear-gradient(
+    to top,
+    rgb(30, 30, 30) 0%,
+    // Màu gradient tối cho mobile
+    rgb(30, 30, 30) 80%,
+    transparent 80%,
+    transparent 100%
+  );
+  --primary-bg-color: rgb(30, 30, 30); // Màu nền chính tối
+  --primary-text-color: #ffffff; // Màu chữ chính sáng
+  --second-color-blue: #0050ff; // Màu xanh dương
+  --social-bg-color: #1a1a1a; // Màu nền social tối
+
+  --form-bg-color: #1a1a1a; // Màu nền form tối
+}

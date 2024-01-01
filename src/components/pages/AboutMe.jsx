@@ -41,7 +41,7 @@ function AboutMe() {
                 </p>
                 <p className="content__info">
                   Want to connect? Reach out through{" "}
-                  <a href="#!" className="content__info--link">
+                  <a href="/Contact" className="content__info--link">
                     the contact
                   </a>{" "}
                   form or my social media!

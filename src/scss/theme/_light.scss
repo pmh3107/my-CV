@@ -1,7 +1,7 @@
 @use "../abstracts";
 
 html {
-  --header-bg-color: #fffff;
+  --header-bg-color: #ffffff;
   --aboutMe-bg-color: linear-gradient(
     to right,
     rgb(230, 218, 206) 0%,
@@ -9,5 +9,17 @@ html {
     transparent 40%,
     transparent 100%
   );
-  --contact-bg-color: rgb(230, 218, 206);
+  --aboutMe-bg-color--mobile: linear-gradient(
+    to top,
+    rgb(230, 218, 206) 0%,
+    rgb(230, 218, 206) 80%,
+    transparent 80%,
+    transparent 100%
+  );
+  --primary-bg-color: rgb(230, 218, 206);
+  --primary-text-color: black;
+  --second-color-blue: #0050ff;
+  --social-bg-color: #ffffff;
+
+  --form-bg-color: #ffffff;
 }
