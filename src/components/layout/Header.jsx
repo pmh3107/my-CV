@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 function Header() {
   const [isActive, setIsActive] = useState(false);
 
@@ -41,9 +42,14 @@ function Header() {
                 </svg>
               </div>
               <ul className={`navbar__list ${isActive ? "visible" : ""}`}>
-                <li className="navbar__item active">About me</li>
+                <li className="navbar__item active">
+                  <Link to="/">About me</Link>
+                </li>
+                <li className="navbar__item">Resume</li>
                 <li className="navbar__item">Project</li>
-                <li className="navbar__item">Contact</li>
+                <li className="navbar__item">
+                  <Link to="/Contact">Contact</Link>
+                </li>
               </ul>
             </div>
           </div>

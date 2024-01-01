@@ -1,14 +1,18 @@
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AboutMe from "./components/pages/AboutMe";
 import "./scss/main.scss";
+import Contact from "./components/pages/Contact";
+
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <AboutMe />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AboutMe />} />
+        <Route path="/Contact" element={<Contact />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 

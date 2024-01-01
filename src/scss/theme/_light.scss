@@ -2,4 +2,12 @@
 
 html {
   --header-bg-color: #fffff;
+  --aboutMe-bg-color: linear-gradient(
+    to right,
+    rgb(230, 218, 206) 0%,
+    rgb(230, 218, 206) 40%,
+    transparent 40%,
+    transparent 100%
+  );
+  --contact-bg-color: rgb(230, 218, 206);
 }
