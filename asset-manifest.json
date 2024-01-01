@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.8b684eb9.css",
-    "main.js": "/static/js/main.f77ebb70.js",
+    "main.js": "/static/js/main.7f4a91f8.js",
     "static/js/787.8e732624.chunk.js": "/static/js/787.8e732624.chunk.js",
     "static/media/Zalo.svg": "/static/media/Zalo.57b37650fbf3076b48c0826126cf2e20.svg",
     "static/media/Github.svg": "/static/media/Github.d0da9d9b0f823086f509c192530d5a15.svg",
@@ -9,11 +9,11 @@
     "static/media/Twitter.svg": "/static/media/Twitter.0d449d45a95251757c109d438c092cb7.svg",
     "static/media/Facebook.svg": "/static/media/Facebook.029e420acc50256d42f17e6d933986c5.svg",
     "main.8b684eb9.css.map": "/static/css/main.8b684eb9.css.map",
-    "main.f77ebb70.js.map": "/static/js/main.f77ebb70.js.map",
+    "main.7f4a91f8.js.map": "/static/js/main.7f4a91f8.js.map",
     "787.8e732624.chunk.js.map": "/static/js/787.8e732624.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8b684eb9.css",
-    "static/js/main.f77ebb70.js"
+    "static/js/main.7f4a91f8.js"
   ]
 }
