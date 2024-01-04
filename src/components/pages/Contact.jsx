@@ -139,9 +139,9 @@ function Contact() {
       <main className="main contact">
         <div className="container">
           <div className="contact-inner">
-            <div className="contact-top">
-              <div className="contact-top__dot"></div>
-              <h1 className="contact-top__heading">Let's talk 🤗</h1>
+            <div className="title-top">
+              <div className="title-top__dot"></div>
+              <h1 className="title-top__heading">Let's talk 🤗</h1>
             </div>
             <div className="contact-form">
               <ContactForm />

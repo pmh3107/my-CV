@@ -49,7 +49,13 @@ function Header() {
                 >
                   <Link to="/">About me</Link>
                 </li>
-                <li className="navbar__item">Resume</li>
+                <li
+                  className={`navbar__item ${
+                    location.pathname === "/Resume" ? "active" : ""
+                  }`}
+                >
+                  <Link to="/Resume">Resume</Link>
+                </li>
                 <li className="navbar__item">Project</li>
                 <li
                   className={`navbar__item ${

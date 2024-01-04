@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import Social from "../common/SocialIcon";
+import { Link } from "react-router-dom";
 function AboutMe() {
   return (
     <>
@@ -28,8 +29,10 @@ function AboutMe() {
               <h2 className="content__title">Hello✌️</h2>
               <h3 className="content__describe">Here's who I am & what I do</h3>
               <div className="content__action">
-                <button className="content__btn">RESUME</button>
-                <button className="content__btn">PROJECT</button>
+                <Link to="/Resume" className="content__link">
+                  RESUME
+                </Link>
+                <button className="content__link">PROJECT</button>
               </div>
               <div className="content__info-all">
                 <p className="content__info">
@@ -41,9 +44,9 @@ function AboutMe() {
                 </p>
                 <p className="content__info">
                   Want to connect? Reach out through{" "}
-                  <a href="/Contact" className="content__info--link">
+                  <Link to="/Contact" className="content__info--link">
                     the contact
-                  </a>{" "}
+                  </Link>{" "}
                   form or my social media!
                 </p>
               </div>
