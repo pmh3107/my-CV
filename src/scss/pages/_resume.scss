@@ -1,3 +1,4 @@
+@use "../abstracts";
 .resume {
   background-color: var(--primary-bg-color);
 
@@ -6,9 +7,18 @@
     align-items: center;
     flex-direction: column;
   }
+  &__title-top {
+    @include abstracts.screen(sm) {
+      padding-top: 50px;
+    }
+  }
   &__body {
     margin-top: 100px;
     max-width: 725px;
+    @include abstracts.screen(sm) {
+      max-width: 370px;
+      margin-top: 50px;
+    }
   }
   &__action {
     display: flex;
@@ -55,9 +65,16 @@
       display: flex;
       gap: 100px;
       margin-top: 20px;
+      @include abstracts.screen(sm) {
+        flex-direction: column;
+        gap: 30px;
+      }
     }
     &--title {
       width: 460px;
+      @include abstracts.screen(sm) {
+        width: 270px;
+      }
     }
     &--job {
       font-size: 2rem;

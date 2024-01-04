@@ -52,7 +52,7 @@ function Resume() {
       <main className="main resume">
         <div className="container">
           <div className="resume__inner">
-            <div className="title-top">
+            <div className="title-top resume__title-top">
               <div className="title-top__dot"></div>
               <h1 className="title-top__heading">Resume</h1>
             </div>
