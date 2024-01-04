@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import Social from "../common/SocialIcon";
 import { Link } from "react-router-dom";
+import { storage } from "../../Firebase";
+import { ref, getDownloadURL } from "firebase/storage";
 function AboutMe() {
+  const [imageUrl, setImageUrl] = useState(null);
+
+  useEffect(() => {
+    // Tạo một tham chiếu đến file trong Firebase Storage
+    const storageRef = ref(
+      storage,
+      "https://firebasestorage.googleapis.com/v0/b/mycv-dd880.appspot.com/o/Avatar%2Fcv.jpg?alt=media&token=3632ca71-e3f0-49a4-ae49-cd74436eaf3d"
+    );
+
+    // Lấy URL tải xuống
+    getDownloadURL(storageRef)
+      .then((url) => {
+        setImageUrl(url);
+      })
+      .catch((error) => {
+        console.error("Error getting download URL: ", error);
+      });
+  }, []);
   return (
     <>
       <Header />
@@ -13,7 +33,7 @@ function AboutMe() {
             <div className="tag-info">
               <figure className="tag-info__thumb">
                 <img
-                  src="https://firebasestorage.googleapis.com/v0/b/mycv-80922.appspot.com/o/cv.jpg?alt=media&token=1ad2d375-60ca-4b68-84fc-90c2150c90a8"
+                  src={imageUrl}
                   alt="Phan Minh Hiển"
                   className="tag-info__avatar"
                 />

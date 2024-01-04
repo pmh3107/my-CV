@@ -1,19 +1,41 @@
 import React from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-import { Link } from "react-router-dom";
-
+import { storage } from "../../Firebase";
+import { ref, getDownloadURL } from "firebase/storage";
 function TagList() {
-  // connect api fire base and fix this link
-  const LinkCV =
-    "https://firebasestorage.googleapis.com/v0/b/mycv-80922.appspot.com/o/Cv_PDF%2FPhan-Minh-Hien_CV.pdf?alt=media&token=183dc758-82c7-4df5-b38f-8102cd17449d";
+  const DownloadCV = async () => {
+    const storageRef = ref(
+      storage,
+      "gs://mycv-dd880.appspot.com/CV_pdf/Phan-Minh-Hien_CV.pdf"
+    );
+
+    try {
+      const url = await getDownloadURL(storageRef);
+
+      // Create a temporary anchor element
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.target = "_blank"; // Open in a new tab/window if needed
+      anchor.download = "Phan-Minh-Hien_CV.pdf"; // Set the desired file name
+
+      // Simulate a click on the anchor element
+      anchor.click();
+      if (anchor.parentNode) {
+        anchor.parentNode.removeChild(anchor);
+      }
+    } catch (error) {
+      console.error("Error getting download URL: ", error);
+    }
+  };
+
   return (
     <div className="resume__list">
       <div className="resume__action">
         <h2 className="resume__heading">Experience</h2>
-        <Link to={LinkCV} className="resume__action--btn">
+        <button onClick={DownloadCV} className="resume__action--btn">
           Download CV
-        </Link>
+        </button>
       </div>
       <Tag />
     </div>
