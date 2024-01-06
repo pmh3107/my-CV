@@ -10,10 +10,7 @@ function AboutMe() {
 
   useEffect(() => {
     // Tạo một tham chiếu đến file trong Firebase Storage
-    const storageRef = ref(
-      storage,
-      "https://firebasestorage.googleapis.com/v0/b/mycv-dd880.appspot.com/o/Avatar%2Fcv.jpg?alt=media&token=3632ca71-e3f0-49a4-ae49-cd74436eaf3d"
-    );
+    const storageRef = ref(storage, "gs://mycv-3107.appspot.com/Avatar/cv.jpg");
 
     // Lấy URL tải xuống
     getDownloadURL(storageRef)
@@ -52,7 +49,9 @@ function AboutMe() {
                 <Link to="/Resume" className="content__link">
                   RESUME
                 </Link>
-                <button className="content__link">PROJECT</button>
+                <Link to="/Project" className="content__link">
+                  PROJECT
+                </Link>
               </div>
               <div className="content__info-all">
                 <p className="content__info">
@@ -65,9 +64,9 @@ function AboutMe() {
                 <p className="content__info">
                   Want to connect? Reach out through{" "}
                   <Link to="/Contact" className="content__info--link">
-                    the contact
+                    the contact page
                   </Link>{" "}
-                  form or my social media!
+                  or my social media!
                 </p>
               </div>
             </div>

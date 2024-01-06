@@ -1,16 +1,20 @@
 import React, { useState } from "react";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { db } from "../../Firebase";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Footer from "../layout/Footer";
 import Header from "../layout/Header";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
+    firstName: " ",
     lastName: "",
+    phone: "",
     email: "",
     subject: "",
     message: "",
   });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -18,10 +22,26 @@ const ContactForm = () => {
       [name]: value,
     });
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    const contactColection = collection(db, "CONTACT");
+    const contactDocRef = doc(contactColection, formData.email);
+    try {
+      await setDoc(contactDocRef, {
+        name: formData.lastName + " " + formData.firstName,
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+      });
+      toast.success("Message sent successfully");
+    } catch (e) {
+      console.log("Error writing document: ", e);
+      console.log("Firebase error code: ", e.code);
+      console.log("Firebase error message: ", e.message);
+      toast.error("An error occurred while sending the message");
+    }
+
     setFormData({
       firstName: "",
       lastName: "",
@@ -40,13 +60,12 @@ const ContactForm = () => {
             First Name
           </label>
           <input
-            typeof="text"
+            type="text"
             id="firstName"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
             className="form__input"
-            placeholder=" "
             required
           />
         </div>
@@ -56,7 +75,7 @@ const ContactForm = () => {
             Last Name
           </label>
           <input
-            typeof="text"
+            type="text"
             id="lastName"
             name="lastName"
             value={formData.lastName}
@@ -73,7 +92,7 @@ const ContactForm = () => {
         <input
           id="phone"
           name="phone"
-          typeof="tel"
+          type="tel"
           pattern="[0-9]*"
           value={formData.phone}
           onChange={handleChange}
@@ -86,7 +105,7 @@ const ContactForm = () => {
           Email
         </label>
         <input
-          typeof="email"
+          type="email"
           id="email"
           name="email"
           value={formData.email}
@@ -101,7 +120,7 @@ const ContactForm = () => {
           Subject
         </label>
         <input
-          typeof="text"
+          type="text"
           id="subject"
           name="subject"
           value={formData.subject}
@@ -125,7 +144,7 @@ const ContactForm = () => {
         ></textarea>
       </div>
 
-      <button className="form__submit-btn btn" typeof="submit">
+      <button type="submit" className="form__submit-btn btn">
         SEND
       </button>
     </form>
@@ -136,6 +155,7 @@ function Contact() {
   return (
     <>
       <Header />
+      <ToastContainer />
       <main className="main contact">
         <div className="container">
           <div className="contact-inner">

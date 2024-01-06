@@ -7,8 +7,6 @@ function ProjectList() {
   return (
     <div className="project__list">
       <ProjectTag />
-      <ProjectTag />
-      <ProjectTag />
     </div>
   );
 }
@@ -19,7 +17,7 @@ function ProjectTag() {
     // Tạo một tham chiếu đến file trong Firebase Storage
     const storageRef = ref(
       storage,
-      "gs://mycv-dd880.appspot.com/Project_img/UTH_FI.png"
+      "gs://mycv-3107.appspot.com/My_Project/UTH_FI.png"
     );
     // Lấy URL tải xuống
     getDownloadURL(storageRef)

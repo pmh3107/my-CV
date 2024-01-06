@@ -15,7 +15,7 @@ function Footer() {
           <div className="footer__columns">
             <ul className="footer__list">
               <li className="footer__item">
-                <h3>Phone number</h3>
+                <h3 className="footer__title">Phone number</h3>
               </li>
               <li className="footer__item">
                 <a className="footer__content" href="tel:0917779407">
@@ -25,7 +25,7 @@ function Footer() {
             </ul>
             <ul className="footer__list">
               <li className="footer__item">
-                <h3>Email</h3>
+                <h3 className="footer__title">Email</h3>
               </li>
               <li className="footer__item">
                 <a
@@ -38,7 +38,7 @@ function Footer() {
             </ul>
             <ul className="footer__list">
               <li className="footer__item">
-                <h3>Follow me</h3>
+                <h3 className="footer__title">Follow me</h3>
               </li>
               <li className="footer__item">
                 <Social />

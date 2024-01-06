@@ -25,10 +25,12 @@ function Header() {
         <div className="header__inner">
           <div className="header__left">
             <div className="header__left-dot"></div>
-            <p className="header__left-name">
-              <strong className="header__left-name-hl">Phan Minh Hien</strong> /
-              IT intern
-            </p>
+            <Link to="/">
+              <p className="header__left-name">
+                <strong className="header__left-name-hl">Phan Minh Hien</strong>{" "}
+                / IT intern
+              </p>
+            </Link>
           </div>
           <nav className="header__nav">
             <div
