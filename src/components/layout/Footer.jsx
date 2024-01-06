@@ -1,5 +1,6 @@
 import React from "react";
 import Social from "../common/SocialIcon";
+
 function Footer() {
   return (
     <footer className="footer">
@@ -14,9 +15,9 @@ function Footer() {
           <div className="footer__columns">
             <ul className="footer__list">
               <li className="footer__item">
-                <h3 className="footer__title">Phone number</h3>
+                <h3>Phone number</h3>
               </li>
-              <li className="footer__content">
+              <li className="footer__item">
                 <a className="footer__content" href="tel:0917779407">
                   0917779407
                 </a>
@@ -24,7 +25,7 @@ function Footer() {
             </ul>
             <ul className="footer__list">
               <li className="footer__item">
-                <h3 className="footer__title">Email</h3>
+                <h3>Email</h3>
               </li>
               <li className="footer__item">
                 <a
@@ -37,7 +38,7 @@ function Footer() {
             </ul>
             <ul className="footer__list">
               <li className="footer__item">
-                <h3 className="footer__title">Follow me</h3>
+                <h3>Follow me</h3>
               </li>
               <li className="footer__item">
                 <Social />

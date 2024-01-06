@@ -16,8 +16,8 @@ function TagList() {
       // Create a temporary anchor element
       const anchor = document.createElement("a");
       anchor.href = url;
-      anchor.target = "_blank"; // Open in a new tab/window if needed
-      anchor.download = "Phan-Minh-Hien_CV.pdf"; // Set the desired file name
+      anchor.target = "_blank";
+      anchor.download = "Phan-Minh-Hien_CV.pdf";
 
       // Simulate a click on the anchor element
       anchor.click();
@@ -41,7 +41,6 @@ function TagList() {
     </div>
   );
 }
-// connect api data
 function Tag() {
   return (
     <div className="resume__tag">

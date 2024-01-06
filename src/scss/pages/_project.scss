@@ -1,0 +1,65 @@
+@use "../abstracts";
+.project {
+  background: var(--primary-bg-color);
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  &__body {
+    max-width: 750px;
+  }
+  &__desc {
+    text-align: center;
+    line-height: 1.5;
+    padding: 50px;
+    @include abstracts.screen(sm) {
+      padding: 30px 20px;
+    }
+  }
+  &__tag {
+    background: var(--form-bg-color);
+    display: flex;
+    @include abstracts.screen(sm) {
+      flex-direction: column;
+    }
+    margin-bottom: 50px;
+    &--description {
+      padding-top: 70px;
+      @include abstracts.screen(sm) {
+        padding-top: 40px;
+      }
+    }
+    &--title {
+      padding-left: 20px;
+      border-left: 10px solid var(--second-color-blue);
+    }
+    &--heading {
+      font-weight: 900;
+      font-size: 2rem;
+      line-height: 2;
+      color: var(--second-color-blue);
+    }
+    &--desc {
+      font-weight: 700;
+    }
+    &--content {
+      padding: 40px;
+      line-height: 1.5;
+      @include abstracts.screen(sm) {
+        padding: 30px;
+      }
+    }
+    &--frameImg {
+      width: 320px;
+      height: 400px;
+      object-fit: cover;
+      object-position: top;
+      @include abstracts.screen(sm) {
+        width: 100%;
+        height: 280px;
+      }
+    }
+  }
+}
