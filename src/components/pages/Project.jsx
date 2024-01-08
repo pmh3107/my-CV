@@ -1,52 +1,50 @@
 import React, { useEffect, useState } from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-import { storage } from "../../Firebase";
-import { ref, getDownloadURL } from "firebase/storage";
+import { db } from "../../Firebase";
+import { collection, getDocs } from "firebase/firestore";
+
 function ProjectList() {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const projectCollectionRef = collection(db, "PROJECT");
+      const projectsSnapshot = await getDocs(projectCollectionRef);
+
+      const projectsData = [];
+      for (const doc of projectsSnapshot.docs) {
+        const projectData = doc.data();
+        projectsData.push({ ...projectData });
+      }
+      setProjects(projectsData);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="project__list">
-      <ProjectTag />
+      {projects.map((project, index) => (
+        <ProjectTag key={index} project={project} />
+      ))}
     </div>
   );
 }
-function ProjectTag() {
-  const [imageUrl, setImageUrl] = useState(null);
 
-  useEffect(() => {
-    // Tạo một tham chiếu đến file trong Firebase Storage
-    const storageRef = ref(
-      storage,
-      "gs://mycv-3107.appspot.com/My_Project/UTH_FI.png"
-    );
-    // Lấy URL tải xuống
-    getDownloadURL(storageRef)
-      .then((url) => {
-        setImageUrl(url);
-      })
-      .catch((error) => {
-        console.error("Error getting download URL: ", error);
-      });
-  }, []);
+function ProjectTag({ project }) {
   return (
     <div className="project__tag">
       <div className="project__tag--description">
         <div className="project__tag--title">
-          <h2 className="project__tag--heading">Project Final Internship</h2>
-          <p className="project__tag--desc">Sale old car</p>
+          <h2 className="project__tag--heading">{project.TITLE}</h2>
+          <p className="project__tag--desc">{project.NAME}</p>
         </div>
-
-        <p className="project__tag--content">
-          This is my graduation internship project. I designed a website selling
-          used cars called: "Central Coast Cars". In this project I used ReactJs
-          technology in the font end and Firebase for the back end. This website
-          has all the functions of an e-commerce website to serve the store's
-          car buying and selling more effectively.
-        </p>
+        <p className="project__tag--content">{project.DESC}</p>
       </div>
       <div className="project__tag--frame">
         <img
-          src={imageUrl}
+          src={project.IMAGE_PATH}
           alt="Img project"
           className="project__tag--frameImg"
         />
@@ -54,6 +52,7 @@ function ProjectTag() {
     </div>
   );
 }
+
 function Project() {
   return (
     <>
@@ -81,4 +80,5 @@ function Project() {
     </>
   );
 }
+
 export default Project;

@@ -1,26 +1,29 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { db } from "../../Firebase";
+import { collection, getDocs } from "firebase/firestore";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import Social from "../common/SocialIcon";
-import { Link } from "react-router-dom";
-import { storage } from "../../Firebase";
-import { ref, getDownloadURL } from "firebase/storage";
+
 function AboutMe() {
-  const [imageUrl, setImageUrl] = useState(null);
+  const [aboutMeData, setAboutMeData] = useState({});
 
   useEffect(() => {
-    // Tạo một tham chiếu đến file trong Firebase Storage
-    const storageRef = ref(storage, "gs://mycv-3107.appspot.com/Avatar/cv.jpg");
+    const fetchData = async () => {
+      try {
+        const aboutMeDocRef = collection(db, "ABOUTME");
+        const aboutMeSnapShot = await getDocs(aboutMeDocRef);
+        const data = aboutMeSnapShot.docs.map((doc) => doc.data())[0]; // Assuming there is only one document
+        setAboutMeData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-    // Lấy URL tải xuống
-    getDownloadURL(storageRef)
-      .then((url) => {
-        setImageUrl(url);
-      })
-      .catch((error) => {
-        console.error("Error getting download URL: ", error);
-      });
+    fetchData();
   }, []);
+
   return (
     <>
       <Header />
@@ -30,14 +33,14 @@ function AboutMe() {
             <div className="tag-info">
               <figure className="tag-info__thumb">
                 <img
-                  src={imageUrl}
+                  src={aboutMeData.IMG_PATH}
                   alt="Phan Minh Hiển"
                   className="tag-info__avatar"
                 />
               </figure>
               <h2 className="tag-info__name">Phan Minh Hien</h2>
               <span className="tag-info__separate" />
-              <p className="tag-info__describe">IT INTERN</p>
+              <p className="tag-info__describe">{aboutMeData.JOB}</p>
               <div className="tag-info__social">
                 <Social />
               </div>
@@ -54,13 +57,7 @@ function AboutMe() {
                 </Link>
               </div>
               <div className="content__info-all">
-                <p className="content__info">
-                  I'm Hien Phan, a passionate techie and explorer! As a
-                  fourth-year IT student, I've honed my skills to become a
-                  skilled front-end developer. I'm fluent in HTML, CSS, and have
-                  a grasp of JavaScript, React, and web app development. Plus,
-                  I'm a TOEIC 600+ holder!
-                </p>
+                <p className="content__info">{aboutMeData.DESCRIBE}</p>
                 <p className="content__info">
                   Want to connect? Reach out through{" "}
                   <Link to="/Contact" className="content__info--link">
@@ -77,4 +74,5 @@ function AboutMe() {
     </>
   );
 }
+
 export default AboutMe;

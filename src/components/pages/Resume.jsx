@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-import { storage } from "../../Firebase";
+import { db, storage } from "../../Firebase";
+import { getDocs, collection } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
+
 function TagList() {
   const DownloadCV = async () => {
     const storageRef = ref(
@@ -12,14 +14,10 @@ function TagList() {
 
     try {
       const url = await getDownloadURL(storageRef);
-
-      // Create a temporary anchor element
       const anchor = document.createElement("a");
       anchor.href = url;
       anchor.target = "_blank";
       anchor.download = "Phan-Minh-Hien_CV.pdf";
-
-      // Simulate a click on the anchor element
       anchor.click();
       if (anchor.parentNode) {
         anchor.parentNode.removeChild(anchor);
@@ -29,6 +27,37 @@ function TagList() {
     }
   };
 
+  // Fetch Data
+  const [resumeJobData, setResumeJobData] = useState([]);
+  const [resumeEduData, setResumeEduData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const jobCollectionRef = collection(db, "RESUMEJOB");
+        const eduCollectionRef = collection(db, "RESUMEEDU");
+        const [jobSnapshot, eduSnapshot] = await Promise.all([
+          getDocs(jobCollectionRef),
+          getDocs(eduCollectionRef),
+        ]);
+        const jobData = jobSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        const eduData = eduSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setResumeJobData(jobData);
+        setResumeEduData(eduData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="resume__list">
       <div className="resume__action">
@@ -37,143 +66,107 @@ function TagList() {
           Download CV
         </button>
       </div>
-      <JobTag />
+      {resumeJobData.map((jobData) => (
+        <JobTag key={jobData.id} job={jobData} />
+      ))}
       <div className="resume__action">
         <h2 className="resume__heading">Education</h2>
       </div>
-      <EduTag />
+      {resumeEduData.map((eduData) => (
+        <EduTag key={eduData.id} edu={eduData} />
+      ))}
+
       <SkillTag />
     </div>
   );
 }
-function JobTag() {
-  // const addJobToFirestore = async () => {
-  //   try {
-  //     const jobsCollection = collection(db, "jobs"); // "jobs" là tên của collection trong Firestore
-
-  //     const jobData = {
-  //       year: "2020 - Present",
-  //       title: "Freelance",
-  //       subTitle1: "Sale electric device",
-  //       subTitle2: "HCM & Da Lat city",
-  //       description: [
-  //         "Purchasing electronic devices (phones, laptops, tablets,...). Check products. Post sales on social networking platforms (Facebook, Cho Tot,...).",
-  //         "Improve communication skills. Be more careful in work. Improve sales skills. Improve knowledge about technology products.",
-  //       ],
-  //     };
-
-  //     await addDoc(jobsCollection, jobData);
-  //     console.log("Job information added to Firestore successfully!");
-  //   } catch (error) {
-  //     console.error("Error adding job information to Firestore: ", error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   // Gọi hàm để thêm thông tin vào Firestore khi component được tạo ra
-  //   addJobToFirestore();
-  // }, []);
-
-  return (
-    <div className="resume__tag">
-      <h3 className="resume__tag--year">2020 - Present</h3>
-      <div className="resume__tag--inner">
-        <div className="resume__tag--title">
-          <h3 className="resume__tag--heading">Freelance</h3>
-          <p className="resume__tag--heading-Small">Sale electric device</p>
-          <p className="resume__tag--heading-Small">HCM & Da Lat city</p>
-        </div>
-        <div className="resume__tag--desc">
-          <p className="resume__tag--content">
-            Purchasing electronic devices (phones, laptops, tablets,...). Check
-            products. Post sales on social networking platforms (Facebook, Cho
-            Tot,...).
-          </p>
-          <p className="resume__tag--content">
-            Improve communication skills. Be more careful in work. Improve sales
-            skills. Improve knowledge about technology products.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-function EduTag() {
-  const [imageUrl, setImageUrl] = useState(null);
+function SkillTag() {
+  const [professionalSkills, setProfessionalSkills] = useState([]);
+  const [specializedSkills, setSpecializedSkills] = useState([]);
+  const [languages, setLanguages] = useState([]);
 
   useEffect(() => {
-    // Tạo một tham chiếu đến file trong Firebase Storage
-    const storageRef = ref(
-      storage,
-      "gs://mycv-3107.appspot.com/Edu/giao-thong-van-tai.jpeg"
-    );
-    // Lấy URL tải xuống
-    getDownloadURL(storageRef)
-      .then((url) => {
-        setImageUrl(url);
-      })
-      .catch((error) => {
-        console.error("Error getting download URL: ", error);
-      });
+    const fetchData = async () => {
+      const skillsCollectionRef = collection(db, "SKILLS");
+      const skillsSnapshot = await getDocs(skillsCollectionRef);
+      const skillsData = skillsSnapshot.docs[0]?.data();
+      console.log(skillsData);
+      if (skillsData) {
+        setProfessionalSkills(skillsData.PERSONAL || []);
+        setSpecializedSkills(skillsData.SKILL || []);
+        setLanguages(skillsData.LANGUAGE || []);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  const renderSkillsList = (skills) => {
+    return (
+      <ul className="resume__tag--list">
+        {skills.map((skill, index) => (
+          <li key={index} className="resume__tag--item">
+            <div className="resume__tag--dot"></div>
+            <p className="resume__tag--content">{skill}</p>
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
     <div className="resume__tag">
-      <h3 className="resume__tag--year">2020 - Present</h3>
+      <h3 className="resume__tag--heading-big">Professional skillset</h3>
+      {renderSkillsList(professionalSkills)}
+
+      <h3 className="resume__tag--heading-big">Specialized skills</h3>
+      {renderSkillsList(specializedSkills)}
+
+      <h3 className="resume__tag--heading-big">Language</h3>
+      {renderSkillsList(languages)}
+    </div>
+  );
+}
+function JobTag({ job }) {
+  return (
+    <div className="resume__tag">
+      <h3 className="resume__tag--year">{job.YEAR}</h3>
       <div className="resume__tag--inner">
         <div className="resume__tag--title">
-          <p className="resume__tag--heading">
-            Ho Chi Minh City University of Transport
-          </p>
-          <p className="resume__tag--heading-Small">information technology</p>
-          <p className="resume__tag--heading-Small">HCM city</p>
+          <h3 className="resume__tag--heading">{job.JOBTITLE}</h3>
+          <p className="resume__tag--heading-Small">{job.JOBNAME}</p>
+          <p className="resume__tag--heading-Small">{job.ADRESS}</p>
         </div>
-        <div className="resume__tag--frame">
-          <img src={imageUrl} alt="" className="resume__tag--frame-img" />
+        <div className="resume__tag--desc">
+          <p className="resume__tag--content">{job.DESC}</p>
         </div>
       </div>
     </div>
   );
 }
-function SkillTag() {
+
+function EduTag({ edu }) {
   return (
-    <>
-      <div className="resume__tag">
-        <h3 className="resume__tag--heading-big">Professional skillset</h3>
-        <ul className="resume__tag--list">
-          <li className="resume__tag--item">
-            <div className="resume__tag--dot"></div>
-            <p className="resume__tag--content">Teamwork & Collaboration</p>
-          </li>
-          <li className="resume__tag--item">
-            <div className="resume__tag--dot"></div>
-            <p className="resume__tag--content">Self learning</p>
-          </li>
-        </ul>
-        <h3 className="resume__tag--heading-big">Specialized skills</h3>
-        <ul className="resume__tag--list">
-          <li className="resume__tag--item">
-            <div className="resume__tag--dot"></div>
-            <p className="resume__tag--content">HTML, CSS, JavaScript</p>
-          </li>
-          <li className="resume__tag--item">
-            <div className="resume__tag--dot"></div>
-            <p className="resume__tag--content">ReacJs</p>
-          </li>
-          <li className="resume__tag--item">
-            <div className="resume__tag--dot"></div>
-            <p className="resume__tag--content">Firebase</p>
-          </li>
-        </ul>
-        <h3 className="resume__tag--heading-big">Language</h3>
-        <ul className="resume__tag--list">
-          <li className="resume__tag--item">
-            <div className="resume__tag--dot"></div>
-            <p className="resume__tag--content">English (Toiec 600 +)</p>
-          </li>
-        </ul>
+    <div className="resume__tag">
+      <h3 className="resume__tag--year">{edu.YEAR}</h3>
+      <div className="resume__tag--inner">
+        <div className="resume__tag--title">
+          <p className="resume__tag--heading">{edu.EDUNAME}</p>
+          <p className="resume__tag--heading-Small">{edu.SPECIALIZED}</p>
+          <p className="resume__tag--heading-Small">{edu.ADRESS}</p>
+        </div>
+        <div className="resume__tag--frame">
+          <img
+            src={edu.IMG_PATH}
+            alt={edu.EDUNAME}
+            className="resume__tag--frame-img"
+          />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
+
 function Resume() {
   return (
     <>
@@ -195,4 +188,5 @@ function Resume() {
     </>
   );
 }
+
 export default Resume;
