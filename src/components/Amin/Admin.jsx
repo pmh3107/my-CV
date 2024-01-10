@@ -1,33 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../AuthContext";
 import { useNavigate } from "react-router-dom";
+import HeaderAdmin from "./Layout/AdminHeader";
+import { ToastContainer } from "react-toastify";
+import AboutMeTag from "./Tag/AboutMeTag";
+import { Link, useLocation } from "react-router-dom";
 
-function Header() {
+const NavItem = ({ to, pages }) => {
+  const location = useLocation();
+  const isActive = location.pathname === to;
   return (
-    <>
-      <header>
-        <h1>Trang admin</h1>
-      </header>
-    </>
+    <li className={`admin__nav--item ${isActive ? "active" : ""}`}>
+      <Link to={to}>{pages}</Link>
+    </li>
   );
-}
-
+};
 function Admin() {
   const [loading, setLoading] = useState(false);
-  const { logoutAdmin } = useAuth();
+
   const navigate = useNavigate();
-
-  const handleSignOut = () => {
-    logoutAdmin();
-    navigate("/");
-  };
-
   useEffect(() => {
     const checkLoggedIn = () => {
       const storedIsLoggedIn =
         localStorage.getItem("isAdminLoggedIn") === "false";
       if (storedIsLoggedIn) {
-        // Use a setTimeout to perform navigation asynchronously
         setTimeout(() => {
           setLoading(true);
           navigate("/Error");
@@ -36,21 +31,34 @@ function Admin() {
     };
 
     checkLoggedIn();
-  }, [navigate]); // Add navigate as a dependency to the useEffect
+  }, [navigate]);
 
   if (loading) {
-    return null; // Render nothing while loading
+    return null;
   }
 
   return (
     <>
-      <Header />
+      <HeaderAdmin />
       <main className="admin">
-        <button className="btn" onClick={handleSignOut}>
-          Sign Out
-        </button>
+        <ToastContainer />
+        <div className="container">
+          <div className="admin__top">
+            <h2 className="admin__top--heading">Manage website content</h2>
+            <nav className="admin__nav">
+              <ul className="admin__nav--list">
+                <NavItem to="/Admin" pages="About me" />
+                <NavItem to="" pages="Resume" />
+                <NavItem to="" pages="Project" />
+                <NavItem to="" pages="Contact" />
+              </ul>
+            </nav>
+          </div>
+          <div className="admin__inner">
+            <AboutMeTag />
+          </div>
+        </div>
       </main>
-      <footer></footer>
     </>
   );
 }

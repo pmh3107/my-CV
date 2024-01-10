@@ -106,6 +106,8 @@ body {
 
 .active {
   color: #0050ff;
+  text-decoration: underline;
+  text-underline-offset: 10px;
 }
 .visible {
   translate: 0;

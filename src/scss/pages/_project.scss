@@ -19,6 +19,7 @@
     }
   }
   &__tag {
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
     background: var(--form-bg-color);
     display: flex;
     @include abstracts.screen(sm) {

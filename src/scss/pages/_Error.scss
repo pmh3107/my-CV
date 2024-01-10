@@ -26,8 +26,6 @@
     @include abstracts.screen(sm) {
       display: none;
     }
-    &--top {
-    }
     &--name {
       display: block;
       width: 400px;
