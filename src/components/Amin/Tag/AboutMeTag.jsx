@@ -171,86 +171,88 @@ function AboutMeTag() {
   };
 
   return (
-    <div className="admin__tag">
-      <h3 className="admin__tag--heading">About Me page</h3>
-      {/* Avatar */}
-      <Avatar />
-      {/* Job Section */}
-      <div className="admin__tag--description">
-        <p className="admin__tag--title">Content of work position</p>
-        {isEditingJob ? (
-          <input
-            type="text"
-            value={editedJob}
-            onChange={(e) => setEditedJob(e.target.value)}
-            className="admin__tag--input"
-          />
-        ) : (
-          <p className="admin__tag--desc">{aboutMeData.JOB}</p>
-        )}
-        <div className="admin__tag--action">
+    <div className="admin__inner">
+      <div className="admin__tag">
+        <h3 className="admin__tag--heading">About Me</h3>
+        {/* Avatar */}
+        <Avatar />
+        {/* Job Section */}
+        <div className="admin__tag--description">
+          <p className="admin__tag--title">Content of work position</p>
           {isEditingJob ? (
-            <div className="admin__tag--action">
+            <input
+              type="text"
+              value={editedJob}
+              onChange={(e) => setEditedJob(e.target.value)}
+              className="admin__tag--input"
+            />
+          ) : (
+            <p className="admin__tag--desc">{aboutMeData.JOB}</p>
+          )}
+          <div className="admin__tag--action">
+            {isEditingJob ? (
+              <div className="admin__tag--action">
+                <button
+                  className="admin__tag--action-btn"
+                  onClick={handleUpdateJob}
+                >
+                  Save
+                </button>
+                <button className="admin__tag--action-btn" onClick={handleBack}>
+                  Back
+                </button>
+              </div>
+            ) : (
               <button
                 className="admin__tag--action-btn"
-                onClick={handleUpdateJob}
+                onClick={() => setIsEditingJob(true)}
               >
-                Save
+                Editing
               </button>
-              <button className="admin__tag--action-btn" onClick={handleBack}>
-                Back
-              </button>
-            </div>
-          ) : (
-            <button
-              className="admin__tag--action-btn"
-              onClick={() => setIsEditingJob(true)}
-            >
-              Editing
-            </button>
-          )}
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* Description Section */}
-      <div className="admin__tag--description">
-        <p className="admin__tag--title">Self-introduction content</p>
-        {isEditingDesc ? (
-          <textarea
-            value={editedDesc}
-            onChange={(e) => setEditedDesc(e.target.value)}
-            className="admin__tag--input"
-          />
-        ) : (
-          <p className="admin__tag--desc">{aboutMeData.DESCRIBE}</p>
-        )}
-        <div className="admin__tag--action">
+        {/* Description Section */}
+        <div className="admin__tag--description">
+          <p className="admin__tag--title">Self-introduction content</p>
           {isEditingDesc ? (
-            <div className="admin__tag--action">
+            <textarea
+              value={editedDesc}
+              onChange={(e) => setEditedDesc(e.target.value)}
+              className="admin__tag--input"
+            />
+          ) : (
+            <p className="admin__tag--desc">{aboutMeData.DESCRIBE}</p>
+          )}
+          <div className="admin__tag--action">
+            {isEditingDesc ? (
+              <div className="admin__tag--action">
+                <button
+                  className="admin__tag--action-btn"
+                  onClick={handleUpdateDesc}
+                >
+                  Save
+                </button>
+                <button className="admin__tag--action-btn" onClick={handleBack}>
+                  Back
+                </button>
+              </div>
+            ) : (
               <button
                 className="admin__tag--action-btn"
-                onClick={handleUpdateDesc}
+                onClick={() => setIsEditingDesc(true)}
               >
-                Save
+                Editing
               </button>
-              <button className="admin__tag--action-btn" onClick={handleBack}>
-                Back
-              </button>
-            </div>
-          ) : (
-            <button
-              className="admin__tag--action-btn"
-              onClick={() => setIsEditingDesc(true)}
-            >
-              Editing
-            </button>
-          )}
+            )}
+          </div>
         </div>
-      </div>
-      <div className="admin__tag--action">
-        <Link to="/" className="admin__tag--link">
-          View to page 📃
-        </Link>
+        <div className="admin__tag--action">
+          <Link to="/" className="admin__tag--link">
+            View to page 📃
+          </Link>
+        </div>
       </div>
     </div>
   );

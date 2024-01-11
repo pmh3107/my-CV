@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import HeaderAdmin from "./Layout/AdminHeader";
 import { ToastContainer } from "react-toastify";
+import { realdb } from "../../Firebase";
+import { ref, onValue } from "firebase/database";
+import HeaderAdmin from "./Layout/AdminHeader";
 import AboutMeTag from "./Tag/AboutMeTag";
-import { Link, useLocation } from "react-router-dom";
+import ContactTag from "./Tag/ContactTag";
 
-const NavItem = ({ to, pages }) => {
-  const location = useLocation();
-  const isActive = location.pathname === to;
+const NavItem = ({ to, pages, onClick, isActive, value }) => {
   return (
-    <li className={`admin__nav--item ${isActive ? "active" : ""}`}>
-      <Link to={to}>{pages}</Link>
+    <li
+      className={`admin__nav--item ${isActive ? "active" : ""} `}
+      onClick={onClick}
+    >
+      {to === "Contact" ? <div className="rounded">{value}</div> : ""}
+      {pages}
     </li>
   );
 };
+
 function Admin() {
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("AboutMe");
+  const [contactCount, setContactCount] = useState(0);
 
   const navigate = useNavigate();
+
   useEffect(() => {
     const checkLoggedIn = () => {
       const storedIsLoggedIn =
@@ -30,8 +38,27 @@ function Admin() {
       }
     };
 
+    const getContactCount = async () => {
+      const ContactRef = ref(realdb, "CONTACT");
+
+      const unsubscribe = onValue(ContactRef, (snapshot) => {
+        let count = 0;
+        snapshot.forEach(() => {
+          count++;
+        });
+        setContactCount(count);
+      });
+
+      return () => unsubscribe();
+    };
+
+    getContactCount();
     checkLoggedIn();
-  }, [navigate]);
+  }, [navigate, contactCount]);
+
+  const handleNavItemClick = (tab) => {
+    setActiveTab(tab);
+  };
 
   if (loading) {
     return null;
@@ -47,15 +74,38 @@ function Admin() {
             <h2 className="admin__top--heading">Manage website content</h2>
             <nav className="admin__nav">
               <ul className="admin__nav--list">
-                <NavItem to="/Admin" pages="About me" />
-                <NavItem to="" pages="Resume" />
-                <NavItem to="" pages="Project" />
-                <NavItem to="" pages="Contact" />
+                <NavItem
+                  to="/Admin"
+                  pages="About me"
+                  onClick={() => handleNavItemClick("AboutMe")}
+                  isActive={activeTab === "AboutMe"}
+                />
+                <NavItem
+                  to=""
+                  pages="Resume"
+                  onClick={() => handleNavItemClick("Resume")}
+                  isActive={activeTab === "Resume"}
+                />
+                <NavItem
+                  to=""
+                  pages="Project"
+                  onClick={() => handleNavItemClick("Project")}
+                  isActive={activeTab === "Project"}
+                />
+                <NavItem
+                  to="Contact"
+                  pages="Contact"
+                  onClick={() => handleNavItemClick("Contact")}
+                  isActive={activeTab === "Contact"}
+                  value={contactCount}
+                />
               </ul>
             </nav>
           </div>
-          <div className="admin__inner">
-            <AboutMeTag />
+          <div className="content-container">
+            {activeTab === "AboutMe" && <AboutMeTag />}
+            {activeTab === "Contact" && <ContactTag />}
+            {/* Thêm các điều kiện cho các tab khác nếu cần */}
           </div>
         </div>
       </main>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { collection, doc, setDoc } from "firebase/firestore";
-import { db } from "../../Firebase";
+import { ref, set, push } from "firebase/database";
+import { realdb } from "../../Firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../layout/Footer";
@@ -8,13 +8,14 @@ import Header from "../layout/Header";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
-    firstName: " ",
+    firstName: "",
     lastName: "",
     phone: "",
     email: "",
     subject: "",
     message: "",
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -22,23 +23,26 @@ const ContactForm = () => {
       [name]: value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const contactColection = collection(db, "CONTACT");
-    const contactDocRef = doc(contactColection, formData.email);
+    const contactRef = ref(realdb, "CONTACT");
+
     try {
-      await setDoc(contactDocRef, {
+      const newContactRef = push(contactRef);
+      await set(newContactRef, {
         name: formData.lastName + " " + formData.firstName,
         email: formData.email,
         phone: formData.phone,
         subject: formData.subject,
         message: formData.message,
       });
+
       toast.success("Message sent successfully");
-    } catch (e) {
-      console.log("Error writing document: ", e);
-      console.log("Firebase error code: ", e.code);
-      console.log("Firebase error message: ", e.message);
+    } catch (error) {
+      console.error("Error writing document: ", error);
+      console.error("Firebase error code: ", error.code);
+      console.error("Firebase error message: ", error.message);
       toast.error("An error occurred while sending the message");
     }
 
@@ -143,7 +147,6 @@ const ContactForm = () => {
           required
         ></textarea>
       </div>
-
       <button type="submit" className="form__submit-btn btn">
         SEND
       </button>
@@ -173,4 +176,5 @@ function Contact() {
     </>
   );
 }
+
 export default Contact;
