@@ -6,6 +6,7 @@ import { ref, onValue } from "firebase/database";
 import HeaderAdmin from "./Layout/AdminHeader";
 import AboutMeTag from "./Tag/AboutMeTag";
 import ContactTag from "./Tag/ContactTag";
+import ProjectTag from "./Tag/ProjectTag";
 
 const NavItem = ({ to, pages, onClick, isActive, value }) => {
   return (
@@ -105,6 +106,7 @@ function Admin() {
           <div className="content-container">
             {activeTab === "AboutMe" && <AboutMeTag />}
             {activeTab === "Contact" && <ContactTag />}
+            {activeTab === "Project" && <ProjectTag />}
             {/* Thêm các điều kiện cho các tab khác nếu cần */}
           </div>
         </div>

@@ -72,7 +72,7 @@ function Description({ data, onDelete }) {
 
 function ContactTag() {
   const [contactData, setContactData] = useState([]);
-
+  const [nodata, setNodata] = useState(false);
   useEffect(() => {
     const fetchData = () => {
       const ContactRef = ref(realdb, "CONTACT");
@@ -86,6 +86,7 @@ function ContactTag() {
           setContactData(dataArray || []);
         } else {
           setContactData([]);
+          setNodata(true);
         }
       });
 
@@ -106,10 +107,22 @@ function ContactTag() {
       toast.error("Error deleting contact");
     }
   };
-
+  if (nodata) {
+    return (
+      <div className="admin__inner">
+        <div className="admin__tag">
+          <h3 className="admin__tag--heading">Contact</h3>
+          <p className="admin__tag--desc">
+            <strong>You have no Information !</strong>
+          </p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="admin__inner">
       <div className="admin__tag">
+        <h3 className="admin__tag--heading">Contact</h3>
         {contactData.map((data) => (
           <Description key={data.id} data={data} onDelete={handleDelete} />
         ))}
