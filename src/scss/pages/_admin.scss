@@ -105,6 +105,27 @@
         font-size: 2.5rem;
       }
     }
+    &--top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &--btn-top {
+      margin-right: 30px;
+      padding: 10px;
+      width: 200px;
+      height: 40px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      border: 2px solid black;
+      &:hover {
+        &:hover {
+          border: 1px solid transparent;
+          color: var(--second-text-color);
+          background-color: var(--second-color-blue);
+        }
+      }
+    }
     &--description {
       position: relative;
       padding: 20px 50px;
@@ -115,6 +136,17 @@
         padding: 30px 50px;
       }
     }
+    &--description-project {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    &--description-form {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
     &--descriptionAvatar {
       width: 300px;
       height: 300px;
@@ -122,6 +154,12 @@
         width: auto;
         height: auto;
       }
+    }
+    &--left {
+      width: 65%;
+    }
+    &--right {
+      width: 35%;
     }
     &--title {
       position: absolute;
@@ -136,8 +174,13 @@
         font-size: 2rem;
       }
     }
+    &--desc-Fix {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
     &--desc {
-      font-size: 1.5em;
+      font-size: 2rem;
       line-height: 2;
       font-weight: 500;
       > strong {
@@ -145,9 +188,21 @@
         font-weight: 700;
         font-size: 2rem;
       }
+      > stronger {
+        margin-left: -10px;
+        font-weight: 700;
+        font-size: 2rem;
+      }
       > small {
         font-size: 1.7rem;
       }
+    }
+    &--desc-textarea {
+      font-size: 2rem;
+      line-height: 2;
+      font-weight: 500;
+      width: 100%;
+      height: 300px;
     }
     &--upImg {
       margin-top: 10px;
@@ -156,6 +211,7 @@
         margin-top: 0;
       }
     }
+
     &--action {
       float: right;
       display: flex;
@@ -174,6 +230,7 @@
         text-underline-offset: 0.2em;
         color: var(--second-color-blue);
       }
+
       &-btnAvatar {
         font-size: 1.6rem;
         @include abstracts.screen(sm) {
@@ -205,6 +262,13 @@
       text-decoration: underline;
       text-underline-offset: 0.2em;
     }
+    &--img {
+      padding: 10px 0;
+      width: 320px;
+      height: 400px;
+      object-fit: cover;
+      object-position: top;
+    }
   }
 }
 .rounded {
@@ -222,4 +286,10 @@
   font-weight: 500;
   color: var(--second-text-color);
   background: red;
+}
+.fixed {
+  text-align: center;
+  border-radius: 30px;
+  border-left: 2px solid red;
+  border-right: 2px solid red;
 }
