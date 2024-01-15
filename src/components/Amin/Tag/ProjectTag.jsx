@@ -15,6 +15,7 @@ import {
   uploadBytesResumable,
   deleteObject,
 } from "firebase/storage";
+import { Link } from "react-router-dom";
 
 function AddDescription({ Click, fetchData }) {
   const [editedData, setEditedData] = useState({});
@@ -375,6 +376,11 @@ function ProjectTag() {
         {projectData.map((data, index) => (
           <Description key={index} data={data} fetchData={fetchData} />
         ))}
+        <div className="admin__tag--action">
+          <Link to="/Project" className="admin__tag--link">
+            View to page 📃
+          </Link>
+        </div>
       </div>
     </div>
   );

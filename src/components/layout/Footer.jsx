@@ -9,7 +9,7 @@ function Footer() {
         <div className="footer__inner">
           <div className="footer__content">
             <div className="footer__copyright">
-              <Link to="/SignIn">
+              <Link to="/Admin">
                 <p className="footer__copyright-content">©2023 by Hien Phan</p>
                 <p className="footer__copyright-content">Code by Hien Phan</p>
               </Link>

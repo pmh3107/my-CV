@@ -7,6 +7,7 @@ import HeaderAdmin from "./Layout/AdminHeader";
 import AboutMeTag from "./Tag/AboutMeTag";
 import ContactTag from "./Tag/ContactTag";
 import ProjectTag from "./Tag/ProjectTag";
+import ResumeTag from "./Tag/ResumeTag";
 
 const NavItem = ({ to, pages, onClick, isActive, value }) => {
   return (
@@ -34,7 +35,7 @@ function Admin() {
       if (storedIsLoggedIn) {
         setTimeout(() => {
           setLoading(true);
-          navigate("/Error");
+          navigate("/SignIn");
         }, 0);
       }
     };
@@ -107,7 +108,7 @@ function Admin() {
             {activeTab === "AboutMe" && <AboutMeTag />}
             {activeTab === "Contact" && <ContactTag />}
             {activeTab === "Project" && <ProjectTag />}
-            {/* Thêm các điều kiện cho các tab khác nếu cần */}
+            {activeTab === "Resume" && <ResumeTag />}
           </div>
         </div>
       </main>
