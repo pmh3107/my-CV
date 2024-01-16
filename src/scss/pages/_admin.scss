@@ -85,6 +85,9 @@
   }
   &__inner {
     padding: 50px 50px;
+    display: flex;
+    gap: 50px;
+    flex-direction: column;
     @include abstracts.screen(sm) {
       padding: 0;
     }

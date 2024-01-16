@@ -293,12 +293,40 @@ function Experience({ data, fectchData, onDelete }) {
     </div>
   );
 }
+function AllEducation() {
+  const [AddEducationTag, setAddEducationTag] = useState(false);
+  return (
+    <>
+      {AddEducationTag && (
+        <>
+          <h3 className="admin__tag--heading">Add Education</h3>
+        </>
+      )}
+      <div className="admin__tag--top">
+        <h3 className="admin__tag--heading">Education</h3>
+        <button
+          className={`admin__tag--btn-top btn ${
+            AddEducationTag ? "visible" : ""
+          }`}
+        >
+          Add new Education
+        </button>
+      </div>
+      {/* {jobData.map((data) => (
+        <Experience key={data.id} data={data} fectchData={fectchData} />
+      ))} */}
+    </>
+  );
+}
 
 function Resume() {
   return (
     <div className="admin__inner">
       <div className="admin__tag">
         <AllExperience />
+      </div>
+      <div className="admin__tag">
+        <AllEducation />
       </div>
     </div>
   );
