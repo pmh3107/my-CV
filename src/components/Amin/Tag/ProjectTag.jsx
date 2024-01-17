@@ -368,7 +368,7 @@ function ProjectTag() {
           <h3 className="admin__tag--heading">Project Created</h3>
           <button
             onClick={handleAddProject}
-            className={`admin__tag--btn-top btn ${addProject ? "visible" : ""}`}
+            className={`admin__tag--btn-top btn ${addProject ? "visibly" : ""}`}
           >
             Add new project
           </button>

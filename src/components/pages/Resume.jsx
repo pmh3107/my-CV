@@ -90,7 +90,6 @@ function SkillTag() {
       const skillsCollectionRef = collection(db, "SKILLS");
       const skillsSnapshot = await getDocs(skillsCollectionRef);
       const skillsData = skillsSnapshot.docs[0]?.data();
-      console.log(skillsData);
       if (skillsData) {
         setProfessionalSkills(skillsData.PERSONAL || []);
         setSpecializedSkills(skillsData.SKILL || []);

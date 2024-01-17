@@ -14,7 +14,7 @@ function AboutMe() {
       try {
         const aboutMeDocRef = collection(db, "ABOUTME");
         const aboutMeSnapShot = await getDocs(aboutMeDocRef);
-        const data = aboutMeSnapShot.docs.map((doc) => doc.data())[0]; // Assuming there is only one document
+        const data = aboutMeSnapShot.docs.map((doc) => doc.data())[0];
         setAboutMeData(data);
       } catch (error) {
         console.error("Error fetching data:", error);
